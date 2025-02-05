@@ -105,15 +105,15 @@
               <span class="label">Years of Experience</span>
             </div>
             <div class="stat-item">
-              <span class="value">50+</span>
+              <span class="value">30+</span>
               <span class="label">Enterprise Projects</span>
             </div>
             <div class="stat-item">
-              <span class="value">30+</span>
+              <span class="value">10+</span>
               <span class="label">Cloud Solutions</span>
             </div>
             <div class="stat-item">
-              <span class="value">15+</span>
+              <span class="value">10+</span>
               <span class="label">Healthcare Solutions</span>
             </div>
           </div>
@@ -138,24 +138,24 @@
             <div class="skill-content">
               <div class="skill-label">
                 <span>System Design</span>
-                <span>95%</span>
+                <span>85%</span>
               </div>
               <div class="skill-meter">
-                <div class="skill-progress" style="width: 95%"></div>
+                <div class="skill-progress" style="--progress: 85%"></div>
               </div>
               <div class="skill-label">
                 <span>Microservices</span>
-                <span>90%</span>
+                <span>80%</span>
               </div>
               <div class="skill-meter">
-                <div class="skill-progress" style="width: 90%"></div>
+                <div class="skill-progress" style="--progress: 80%"></div>
               </div>
               <div class="skill-label">
                 <span>API Design</span>
-                <span>92%</span>
+                <span>85%</span>
               </div>
               <div class="skill-meter">
-                <div class="skill-progress" style="width: 92%"></div>
+                <div class="skill-progress" style="--progress: 85%"></div>
               </div>
             </div>
           </div>
@@ -169,24 +169,24 @@
             <div class="skill-content">
               <div class="skill-label">
                 <span>AWS</span>
-                <span>95%</span>
+                <span>80%</span>
               </div>
               <div class="skill-meter">
-                <div class="skill-progress" style="width: 95%"></div>
+                <div class="skill-progress" style="--progress: 80%"></div>
               </div>
               <div class="skill-label">
-                <span>Kubernetes</span>
-                <span>88%</span>
+                <span>Salesforce</span>
+                <span>70%</span>
               </div>
               <div class="skill-meter">
-                <div class="skill-progress" style="width: 88%"></div>
+                <div class="skill-progress" style="--progress: 70%"></div>
               </div>
               <div class="skill-label">
                 <span>DevOps</span>
-                <span>85%</span>
+                <span>70%</span>
               </div>
               <div class="skill-meter">
-                <div class="skill-progress" style="width: 85%"></div>
+                <div class="skill-progress" style="--progress: 70%"></div>
               </div>
             </div>
           </div>
@@ -199,25 +199,25 @@
             </div>
             <div class="skill-content">
               <div class="skill-label">
-                <span>Java/Spring</span>
-                <span>92%</span>
-              </div>
-              <div class="skill-meter">
-                <div class="skill-progress" style="width: 92%"></div>
-              </div>
-              <div class="skill-label">
-                <span>Node.js</span>
+                <span>.NET</span>
                 <span>85%</span>
               </div>
               <div class="skill-meter">
-                <div class="skill-progress" style="width: 85%"></div>
+                <div class="skill-progress" style="--progress: 85%"></div>
+              </div>
+              <div class="skill-label">
+                <span>Node.js</span>
+                <span>70%</span>
+              </div>
+              <div class="skill-meter">
+                <div class="skill-progress" style="--progress: 70%"></div>
               </div>
               <div class="skill-label">
                 <span>React</span>
                 <span>80%</span>
               </div>
               <div class="skill-meter">
-                <div class="skill-progress" style="width: 80%"></div>
+                <div class="skill-progress" style="--progress: 80%"></div>
               </div>
             </div>
           </div>
@@ -339,7 +339,7 @@
       let lastScrollPosition = 0;
       let ticking = false;
 
-      function updateNavbar(scrollPos) {
+      function handleScroll(scrollPos) {
         if (scrollPos > 50) {
           navbar.classList.add("scrolled");
         } else {
@@ -352,13 +352,44 @@
 
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            updateNavbar(lastScrollPosition);
+            handleScroll(lastScrollPosition);
             ticking = false;
           });
 
           ticking = true;
         }
       });
+
+      // Skill progress animation
+      const skillSection = document.querySelector('.skills');
+      const progressBars = document.querySelectorAll('.skill-progress');
+      let animated = false;
+
+      function animateSkills() {
+        const sectionTop = skillSection.offsetTop;
+        const sectionHeight = skillSection.clientHeight;
+        const scrollPosition = window.scrollY + window.innerHeight;
+
+        if (scrollPosition > sectionTop + sectionHeight * 0.3 && !animated) {
+          progressBars.forEach(bar => {
+            bar.classList.add('animate');
+          });
+          animated = true;
+        }
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            animateSkills();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+
+      // Trigger animation if skills section is already in view
+      document.addEventListener('DOMContentLoaded', animateSkills);
 
       // Active link highlighting
       const sections = document.querySelectorAll("section[id]");
@@ -388,10 +419,10 @@
 
       navLinks.forEach((link) => {
         link.addEventListener("click", (event) => {
-          event.preventDefault(); // Prevent default anchor click behavior
+          event.preventDefault();
           const targetId = link.getAttribute("href").slice(1);
           const targetSection = document.getElementById(targetId);
-          targetSection.scrollIntoView({ behavior: "smooth" }); // Smooth scroll to the section
+          targetSection.scrollIntoView({ behavior: "smooth" });
           navLinks.forEach((l) => l.classList.remove("active"));
           link.classList.add("active");
         });
@@ -403,7 +434,6 @@
             updateActiveLink();
             ticking = false;
           });
-
           ticking = true;
         }
       });

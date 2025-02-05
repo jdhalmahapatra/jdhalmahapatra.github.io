@@ -361,11 +361,85 @@ section {
 }
 
 /* Skills Section */
+.skills {
+    padding: 6rem 0;
+    background: var(--color-bg-dark);
+}
+
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.skill-category {
+    background: var(--color-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+}
+
+.skill-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.skill-header i {
+    font-size: 2rem;
+    color: var(--color-primary);
+}
+
+.skill-header h3 {
+    font-size: 1.5rem;
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.skill-content {
+    margin-bottom: 1.5rem;
+}
+
+.skill-content:last-child {
+    margin-bottom: 0;
+}
+
+.skill-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.skill-meter {
+    height: 8px;
+    background: var(--color-bg-dark);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: 4px;
+    width: 0;
+    transition: width 1.5s ease-in-out;
+}
+
+.skill-progress.animate {
+    animation: progressAnimation 1.5s ease-out forwards;
+}
+
+@keyframes progressAnimation {
+    from {
+        width: 0;
+    }
+    to {
+        width: var(--progress);
+    }
 }
 
 .skill-card {
@@ -425,6 +499,18 @@ section {
     font-size: 0.9rem;
     color: var(--color-text);
     font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Projects Section */
@@ -558,6 +644,45 @@ section {
     margin-bottom: 0;
 }
 
+.about-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.highlight-item {
+    text-align: center;
+    padding: 2rem;
+    background: var(--color-bg);
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.highlight-item i {
+    color: var(--color-primary);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.highlight-item h3 {
+    color: var(--color-dark);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.highlight-item p {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
 .about-stats {
     display: flex;
     flex-direction: column;
@@ -597,43 +722,59 @@ section {
     font-weight: 500;
 }
 
-.about-highlights {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 3rem;
+@media (max-width: 1024px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .about-highlights {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-stats {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .highlight-item,
+    .stat-item {
+        min-height: 200px;
+    }
 }
 
-.highlight-item {
-    text-align: center;
-    padding: 2rem;
-    background: var(--color-bg);
-    border-radius: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .about-description {
+        font-size: 1rem;
+    }
+
+    .highlight-item,
+    .stat-item {
+        padding: 1.5rem;
+        min-height: 180px;
+    }
 }
 
-.highlight-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-}
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.75rem;
+    }
 
-.highlight-item i {
-    color: var(--color-primary);
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
+    .about-highlights,
+    .about-stats {
+        grid-template-columns: 1fr;
+    }
 
-.highlight-item h3 {
-    color: var(--color-dark);
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.highlight-item p {
-    color: var(--color-text-light);
-    font-size: 0.95rem;
-    line-height: 1.6;
+    .highlight-item,
+    .stat-item {
+        min-height: 160px;
+    }
 }
 
 /* Responsive Design */
